@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="p-10 text-center">
-      <h1 className="text-2xl font-bold">Django Ninja + React Boilerplate</h1>
+      <h1 className="text-2xl font-bold">Wortschatz</h1>
       <p className="mt-4 text-lg">{message || "Loading..."}</p>
     </div>
   );
