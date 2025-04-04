@@ -21,16 +21,44 @@ def get_lines(start, finish, file_path_in):
     except Exception as e:
         return {"error": "File not found"}
 def get_sentences_with_one_of(words, limit, file_path_in):
-    data = []
+    data = {}
+    for word in words:
+        data[word] = []
     output = {"data": data}
     file_path = os.path.join(os.path.dirname(__file__), file_path_in)#"../lookup_files/small_file.txt"
     file_path = os.path.abspath(file_path)
-    try:
+    try:#todo it doesn't seem like the limit is really working...
         with open(file_path, "r", encoding="utf-8") as fp:
             for i, line in enumerate(fp):
-                for word in words:
+                for word in words:#TODO should this be reversed with the above line?
                     if word.lower() in line.lower():
-                        data.append(line)
+                        #data.append(line)
+                        data[word].append(line)
+                        if len(data) >= limit:
+                            break
+                if len(data) >= limit:
+                    break
+        return output
+    except FileNotFoundError:
+        return {"error": "File not found"}
+    except Exception as e:
+        return {"error": str(e)}
+def get_sentences_with_one_of2(words, limit, file_path_in):
+    data = {}
+    for word in words:
+        data[word] = {}
+        data[word]["sentences"] = []
+        data[word]["word"] = word
+    output = {"data": data}
+    file_path = os.path.join(os.path.dirname(__file__), file_path_in)#"../lookup_files/small_file.txt"
+    file_path = os.path.abspath(file_path)
+    try:#todo it doesn't seem like the limit is really working...
+        with open(file_path, "r", encoding="utf-8") as fp:
+            for i, line in enumerate(fp):
+                for word in words:#TODO should this be reversed with the above line?
+                    if word.lower() in line.lower():
+                        #data.append(line)
+                        data[word]["sentences"].append(line)
                         if len(data) >= limit:
                             break
                 if len(data) >= limit:
@@ -54,10 +82,10 @@ def get_random_lines(num_lines, file_path_in):
                 if not random_l >= get_end_position(fp):
                     fp.seek(random_l)
                     fp.readline()
-                    data.append(fp.readline())
+                    data.append(filter_with_regex(fp.readline()))
                     i += 1
     except Exception as e:
-        return {"error": str(e)}#
+        return {"error": str(e)}
     return {"data": data}
 def is_past_end_of_file(file, random_l):
     current_position = file.tell()

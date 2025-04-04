@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 # Create your views here.
 from ninja import NinjaAPI, Schema
-from backend.services.file_reader import get_sentences_with_one_of, get_lines, get_random_lines
+from backend.services.file_reader import get_sentences_with_one_of2, get_lines, get_random_lines
 from typing import List
 from pydantic import Field
 api = NinjaAPI()
@@ -28,7 +28,7 @@ class SentenceRequest(Schema):
 @api.post("/get-sentences-with-one-of")
 def fetch_sentences_with_one_of(request, data: SentenceRequest):
     file_path = f"../lookup_files/{data.which_file}.txt"
-    content = get_sentences_with_one_of(data.words, data.limit, file_path)
+    content = get_sentences_with_one_of2(data.words, data.limit, file_path)
     #content = {"data": {"words": data.words, "limit": data.limit, "file_path": file_path}}
     return JsonResponse(content)
 
