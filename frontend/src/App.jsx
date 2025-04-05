@@ -65,6 +65,21 @@ function App() {
     }
   }
   
+  const build_request_to_gpt = (text) => { 
+    return {
+      url: "http://127.0.0.1:8000/api/gpt-translate",
+      options: {
+        method:"POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text: text,
+          accept_multipe: true
+        })
+      }
+    } 
+  }
   useEffect(() => {
     console.log("sending...")
     fetch(url_optrions_ran_lines.url, url_optrions_ran_lines.options)
@@ -79,6 +94,18 @@ function App() {
   }, []);
   useEffect(() => {
     if(words.length == 0) return
+
+    let gpt_request = build_request_to_gpt(words[0])
+    fetch(gpt_request.url, gpt_request.options)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        //setWordObjects((prev) => data.data)
+        console.log(data.data)
+      })
+      .catch(error => console.error("Error fetching data:", error))
+    
+    //get sentences containing the words
     let sentence_request = build_sentences_request(words, 20)
     fetch(sentence_request.url, sentence_request.options)
       .then(response => response.json())
@@ -90,6 +117,8 @@ function App() {
         console.log(wordObjects)
       })
       .catch(error => console.error("Error fetching data:", error));
+    
+
   }, [words])
   return (
     <div className="p-10 text-center">
