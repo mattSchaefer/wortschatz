@@ -1,3 +1,5 @@
 {
-    "workbench.colorTheme": "Firewatch Theme"
+    "workbench.colorTheme": "Firewatch Theme",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.currentLine.pullRequests.enabled": false
 }
