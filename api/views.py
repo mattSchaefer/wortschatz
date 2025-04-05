@@ -44,9 +44,10 @@ class GptTranslationRequest(Schema):
     text: str = "Kabelsalat"
     req_type: str = "word"
     accept_multiple: bool = True
+    requesting_multiple: str = "no"
 @api.post("/gpt-translate")
 def request_gpt_translate(request, data: GptTranslationRequest):
-    content = gpt_translate(data.text, data.req_type, data.accept_multiple)
+    content = gpt_translate(data.text, data.req_type, data.accept_multiple, data.requesting_multiple)
     return JsonResponse(content)
 
 # def get_sentences_with_one_of(request):   

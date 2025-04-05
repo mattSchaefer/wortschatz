@@ -4,7 +4,7 @@ import requests
 import json
 from django.conf import settings
 
-def gpt_translate(text, req_type, accept_multiple):
+def gpt_translate(text, req_type, accept_multiple, requesting_multiple):
     response_data = {}
     prompt = "in as few words as possible,"
     gpt_url = "https://api.openai.com/v1/responses"
