@@ -112,9 +112,6 @@ function App() {
     //   })
     //   .catch(error => console.error("Error fetching data:", error));
     
-    setTimeout(() => {
-      console.log(flashCards)
-    }, 4500)
   }, [words])
   return (
     <div className="p-10 text-center">
@@ -150,8 +147,8 @@ function App() {
                   <h3>
                     <span>
                       <span>{card.word}</span>
-                      <span class="space-small">/</span>
-                      <span class="italics">{card.translation}</span>  
+                      <span className="space-small">/</span>
+                      <span className="italics">{card.translation}</span>  
                     </span>
                   </h3>
                   <ul>

@@ -40,14 +40,6 @@ const useRandomFlashCardHook = (number_cards) => {
         fetch(url_options_sentences.url, url_options_sentences.options)
         .then(response => response.json())
         .then(data => {
-            // setFlashCards((prev) => {
-            //     return prev.map((flashCard) => {
-            //         return {
-            //             ...flashCard,
-            //             sentences: data.data[flashCard["word"]] ? data.data[flashCard["word"]].sentences : []
-            //         }
-            //     })
-            // })
             console.log(data)
             let sentences_map = words.map((word) => {
                 return {
@@ -56,23 +48,18 @@ const useRandomFlashCardHook = (number_cards) => {
                     sentences: data.data[word].sentences
                 }
             })
-            console.log(sentences_map) 
-
             fetch(url_options_gpt.url, url_options_gpt.options)
             .then(response2 => response2.json())
             .then((data2) => {
                 console.log("gpt response")
-                //console.log(JSON.parse(data2, null, 2))
                 let parsed_data2 = JSON.parse(data2)
                 console.log(parsed_data2)
                 let flash_cards_map = sentences_map.map((sentence_word_obj) => {
                     let word = sentence_word_obj.word
-                    console.log(parsed_data2)
                     let translation = parsed_data2.find((translation_word_obj) => {
-                        console.log(translation_word_obj)
-                        return translation_word_obj.word.toString() == word.toString()
-                    }).translation
-                    //parsed_data
+                        
+                        return translation_word_obj && translation_word_obj.word && translation_word_obj.word.toString() == word.toString()
+                    }).translation || ""
                     return {
                         word: word,
                         translation: translation,

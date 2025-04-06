@@ -19,7 +19,7 @@ def gpt_translate(text, req_type, accept_multiple, requesting_multiple):
             "Translate from German the following words into English.\n\n"
             "Return a JSON array of objects with the structure:\n"
             '{ "word": "<original word>", "translation": "<English translation>" }\n\n'
-            f"Words to translate: {', '.join(text)}"
+            f"Words to translate: {text}"# {', '.join(text)}
         )
         payload = json.dumps({
             "model": "gpt-4o",
