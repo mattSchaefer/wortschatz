@@ -48,7 +48,7 @@ class GptTranslationRequest(Schema):
 @api.post("/gpt-translate")
 def request_gpt_translate(request, data: GptTranslationRequest):
     content = gpt_translate(data.text, data.req_type, data.accept_multiple, data.requesting_multiple)
-    return JsonResponse(content)
+    return JsonResponse(content, safe=False)
 
 # def get_sentences_with_one_of(request):   
 #     words = request["words"]

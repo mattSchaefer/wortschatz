@@ -9,7 +9,7 @@ export const build_request_to_gpt = (text, accept_multipe, requesting_multipe) =
         body: JSON.stringify({
           text: text.join(","),
           accept_multipe: accept_multipe || true,
-          requesting_multipe: requesting_multipe || false
+          requesting_multipe: requesting_multipe || true
         })
       }
     } 

@@ -147,7 +147,13 @@ function App() {
             return (
               <li key={index}>
                 <div className="text-left">
-                  <h3>{card.word}</h3>
+                  <h3>
+                    <span>
+                      <span>{card.word}</span>
+                      <span class="space-small">/</span>
+                      <span class="italics">{card.translation}</span>  
+                    </span>
+                  </h3>
                   <ul>
                     {
                       card.sentences && card.sentences.map((sentence, index) => {
