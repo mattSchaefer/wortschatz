@@ -17,26 +17,14 @@ const useRandomFlashCardHook = (number_cards) => {
         .then(response => response.json())
         .then(data => {
             setWords((prev) => data.data)
-            // setFlashCards((prev) => {
-            //     return data.data.map((word) => {
-            //         return {
-            //             word: word,
-            //             translation: "",
-            //             sentences: []
-            //         }
-            //     })
-            // })
         })
         .catch(error => console.error("Error fetching data:", error));
     }, [])
-
     //chain the promises for now but refactor later to use promise.all 
     React.useEffect(() => {
         if(!words || words.length == 0) return
         url_options_sentences =  build_sentences_request(words, 15, "deu_news_2024_10K-sentences")
         url_options_gpt = build_request_to_gpt(words, false, true)
-        
-
         fetch(url_options_sentences.url, url_options_sentences.options)
         .then(response => response.json())
         .then(data => {
@@ -56,8 +44,7 @@ const useRandomFlashCardHook = (number_cards) => {
                 console.log(parsed_data2)
                 let flash_cards_map = sentences_map.map((sentence_word_obj) => {
                     let word = sentence_word_obj.word
-                    let translation = parsed_data2.find((translation_word_obj) => {
-                        
+                    let translation = parsed_data2.find((translation_word_obj) => { 
                         return translation_word_obj && translation_word_obj.word && translation_word_obj.word.toString() == word.toString()
                     }).translation || ""
                     return {
@@ -71,15 +58,8 @@ const useRandomFlashCardHook = (number_cards) => {
                 })
             })
             .catch(error => console.error("Error fetching data:", error))
-
-
-
-            //setFlashCards(sentences_map)
         })
-       
-        
     }, [words])
     return [url_optrions_ran_lines, words, setWords, flashCards, setFlashCards]
 }
-
 export {useRandomFlashCardHook}
