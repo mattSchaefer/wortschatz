@@ -10,7 +10,10 @@ def gpt_translate(text, req_type, accept_multiple, requesting_multiple):
     gpt_url = "https://api.openai.com/v1/responses"
     if(accept_multiple):
         prompt += "using an array, "
-    prompt += f"translate into English: {text}"
+    if(requesting_multiple == "yes"):
+        prompt += "in a json object, "
+        text = str(text)
+    prompt += f"translate into English splitting on the commas and treating like an array with these terms: {text}. make the object have keys 'word' and 'translation'"
     payload = json.dumps({
         "model": "gpt-4o",
         "input": prompt
