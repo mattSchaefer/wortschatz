@@ -44,9 +44,13 @@ const useRandomFlashCardHook = (number_cards) => {
                 console.log(parsed_data2)
                 let flash_cards_map = sentences_map.map((sentence_word_obj) => {
                     let word = sentence_word_obj.word
-                    let translation = parsed_data2.find((translation_word_obj) => { 
+                    let translation = ""
+                    let found_ele = parsed_data2.find((translation_word_obj) => { 
                         return translation_word_obj && translation_word_obj.word && translation_word_obj.word.toString() == word.toString()
-                    }).translation || ""
+                    })
+                    if(found_ele && found_ele.translation) {
+                        translation = found_ele.translation
+                    }
                     return {
                         word: word,
                         translation: translation,

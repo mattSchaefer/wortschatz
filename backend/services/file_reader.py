@@ -31,13 +31,16 @@ def get_sentences_with_one_of(words, limit, file_path_in):
         with open(file_path, "r", encoding="utf-8") as fp:
             for i, line in enumerate(fp):
                 for word in words:#TODO should this be reversed with the above line?
+                    sentences_for_word_count = 0
                     if word.lower() in line.lower():
                         #data.append(line)
-                        data[word].append(line)
-                        if len(data) >= limit:
+                        
+                        if len(data[word]) <= limit:
+                            data[word].append(line)
+                        else:
                             break
-                if len(data) >= limit:
-                    break
+                #if len(data) >= limit:
+                #    break
         return output
     except FileNotFoundError:
         return {"error": "File not found"}
@@ -52,17 +55,19 @@ def get_sentences_with_one_of2(words, limit, file_path_in):
     output = {"data": data}
     file_path = os.path.join(os.path.dirname(__file__), file_path_in)#"../lookup_files/small_file.txt"
     file_path = os.path.abspath(file_path)
+    #this can/should be refactored to open/close the file for each word. that way each word can search the entiire file
     try:#todo it doesn't seem like the limit is really working...
         with open(file_path, "r", encoding="utf-8") as fp:
             for i, line in enumerate(fp):
                 for word in words:#TODO should this be reversed with the above line?
                     if word.lower() in line.lower():
                         #data.append(line)
-                        data[word]["sentences"].append(line)
-                        if len(data) >= limit:
+                        if len(data[word]["sentences"]) <= limit:
+                            data[word]["sentences"].append(line)
+                        if len(data[word]["sentences"]) > limit:
                             break
-                if len(data) >= limit:
-                    break
+                # if len(data) >= limit:
+                #     break
         return output
     except FileNotFoundError:
         return {"error": "File not found"}

@@ -16,7 +16,7 @@ def gpt_translate(text, req_type, accept_multiple, requesting_multiple):
     #if(requesting_multiple == "yes"):
     try:
         prompt = (
-            "Translate from German the following words into English.\n\n"
+            "Translate from German t                                                                                                                        he following words into English.\n\n"
             "Return a JSON array of objects with the structure:\n"
             '{ "word": "<original word>", "translation": "<English translation>" }\n\n'
             f"Words to translate: {text}"# {', '.join(text)}
