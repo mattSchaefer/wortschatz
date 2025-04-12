@@ -16,20 +16,20 @@ def gpt_translate(text, req_type, accept_multiple, requesting_multiple):
     #if(requesting_multiple == "yes"):
     try:
         prompt = (
-            "Translate from German t                                                                                                                        he following words into English.\n\n"
+            "Translate from German the following words into English.\n\n"
             "Return a JSON array of objects with the structure:\n"
             '{ "word": "<original word>", "translation": "<English translation>" }\n\n'
             f"Words to translate: {text}"# {', '.join(text)}
         )
-        payload = json.dumps({
-            "model": "gpt-4o",
-            "input": prompt
-        })
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f'Bearer {os.getenv("GPT_API_KEY")}',
-        }
-        response = requests.post(gpt_url, headers=headers, data=payload)
+        #payload = json.dumps({
+        #    "model": "gpt-4o",
+        #    "input": prompt
+        #})
+        #headers = {
+        #    'Content-Type': 'application/json',
+        #    'Authorization': f'Bearer {os.getenv("GPT_API_KEY")}',
+        #}
+        #response = requests.post(gpt_url, headers=headers, data=payload)
         response = client.responses.create(
             model="gpt-4o",
             input=prompt

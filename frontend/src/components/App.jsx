@@ -1,8 +1,8 @@
 import { useState, useEffect, React, use } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { useRandomFlashCardHook } from './hooks/RandomFlashcardHook'
+import reactLogo from '../assets/react.svg'
+import FlashCardList from './flashcards/FlashCardList'
+import '../App.css'
+import { useRandomFlashCardHook } from '../hooks/RandomFlashcardHook'
 function App() {
   
   const [url_optrions_ran_lines, words, setWords, flashCards, setFlashCards] = useRandomFlashCardHook(10)
@@ -10,7 +10,10 @@ function App() {
   return (
     <div className="p-10 text-center">
       <h1 className="text-2xl font-bold">Wortschatz</h1>
-     <ul className="word-list-ele">
+      <ul className="word-list-ele">
+      <FlashCardList flashCards={flashCards} />
+      {
+        /*  
         {
           flashCards.map((card, index) => {
             return (
@@ -39,6 +42,8 @@ function App() {
             )
           })
         }
+       */
+      }
      </ul>
     </div>
   );

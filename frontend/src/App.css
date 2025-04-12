@@ -1,4 +1,26 @@
 
+.next-sentence-button{
+  z-index:1000
+}
+.flashCard{
+  z-index: 99;
+  width: 38%;
+  border: 1px solid black;
+  padding: 2rem;
+}
+.flashCard:Hover{
+  background: #e97035;
+  color: #eee;
+  cursor: pointer;
+}
+.flash-cards-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
 *{
   font-family: 'Titillium Web', sans-serif;
 }
