@@ -11,6 +11,7 @@
 .sentence-container{
   text-align: start;
   height: 6rem;
+  width: 108%;
   overflow: scroll;
 }
 .sentence-container::-webkit-scrollbar {
