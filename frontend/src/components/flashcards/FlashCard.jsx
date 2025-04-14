@@ -5,6 +5,8 @@ const FlashCard = (props) => {
     let current_sentence_index = 0
     const [currentSentenceIndex, setCurrentSentenceIndex] = useState(current_sentence_index)
     const [currentSide, setCurrentSide] = useState("front")
+    const [sentencesToggle, setSentencesToggle] = useState(false)
+    
     const toggleCurrentSide = (e) => {
         console.log(e.target)
         if(e.target.className == "next-sentence-button"){
@@ -15,33 +17,55 @@ const FlashCard = (props) => {
     }
     const nextSentenceClick = (e) => {
         console.log(e.target)
-        setCurrentSentenceIndex((prev) => { return prev + 1} )
+        console.log(sentencesToggle)
+        if(currentSentenceIndex == sentences.length - 1)
+            return
+        if(!sentencesToggle){
+            setSentencesToggle(true)
+        }else{
+            
+           setCurrentSentenceIndex((prev) => { return prev + 1} )     
+        }        
+    }
+    const sentenceCarousel = () => {
+        console.log(sentences.length)
+        return(
+            <div className="sentence-button-container">
+                {
+                    sentencesToggle &&
+                    <div className="sentence-container">
+                        {sentences[currentSentenceIndex]}
+                    </div>
+                }
+                <button onClick={(e) => nextSentenceClick(e)} className="next-sentence-button" disabled={!(sentences && sentences.length > 1)}>
+                    z. Beispiel
+                </button>
+                
+            </div>
+        )
     }
     return (
         <div className="flashCard" onClick={(e) => toggleCurrentSide(e)}>
             {
                 currentSide == "front" &&
-                <div>
+                <div className="flashcard-inner-container">
                     <h3>
                         {props.card.word}
                     </h3>
-                    <div>
-                        {sentences[currentSentenceIndex]}
-                    </div>
-                    
+                    {
+                        sentenceCarousel(sentences)
+                    }
                 </div>
             }
             {
                 currentSide == "back" &&
-                <div>
-                    <span>{props.card.translation}</span>
+                <div className="flashcard-inner-container">
+                    <h3>{props.card.translation}</h3>
                 </div>
             }
-            <button onClick={(e) => nextSentenceClick(e)} className="next-sentence-button">
-                        naechstes Saetze
-            </button>
         </div>
     )
 }
+
 
 export default FlashCard
